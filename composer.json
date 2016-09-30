@@ -1,0 +1,26 @@
+{
+    "name": "skybluesofa/onthisday",
+    "description": "Get fun events and holidays for a given day",
+    "keywords": ["day", "event", "holiday"],
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/skybluesofa/on-this-day",
+    "authors": [
+        {
+            "name": "Dave Rogers",
+            "email": "connect@skybluesofa.com",
+            "homepage": "http://skybluesofa.com/"
+        }
+    ],
+    "require": {
+      "php": ">=5.3.0"
+    },
+    "require": {
+        "nesbot/carbon": "~1.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skybluesofa\\OnThisDay\\": "src"
+        }
+    }
+}

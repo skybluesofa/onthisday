@@ -1,0 +1,14 @@
+<phpunit bootstrap="./bootstrap.php">
+    <testsuite name="On This Day Test Suite">
+        <directory>./</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">/src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging>
+</phpunit>
