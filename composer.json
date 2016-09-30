@@ -4,7 +4,7 @@
     "keywords": ["day", "event", "holiday"],
     "type": "library",
     "license": "MIT",
-    "homepage": "https://github.com/skybluesofa/on-this-day",
+    "homepage": "https://github.com/skybluesofa/onthisday",
     "authors": [
         {
             "name": "Dave Rogers",
