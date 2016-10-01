@@ -42,7 +42,7 @@ abstract class Month {
     */
     public static $configurationEvents = [];
 
-    abstract private function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date);
+    abstract protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date);
 
     public function parsedDay(Carbon $date, $modifier=null) {
         $monthStartDate = Carbon::now();

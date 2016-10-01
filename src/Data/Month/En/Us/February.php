@@ -60,7 +60,7 @@ class February extends Month {
 
     ];
 
-    private function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
         if ($date->toDateString() == date("Y-m-d", strtotime("last sunday", strtotime("2/14/".$date->year)))) {
             $events[] = "Man Day"; // Sunday before Valentine"s Day
