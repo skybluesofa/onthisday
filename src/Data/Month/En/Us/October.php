@@ -68,7 +68,7 @@ class October extends Month {
         "Fourth Sunday of October %y" => ["Mother-in-Law Day"],
     ];
 
-    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+    private function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
         return $events;
     }

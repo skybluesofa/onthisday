@@ -42,12 +42,17 @@ abstract class Month {
     */
     public static $configurationEvents = [];
 
-    abstract static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date);
+    abstract private function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date);
 
     public function parsedDay(Carbon $date, $modifier=null) {
         $monthStartDate = Carbon::now();
         $monthStartDate->setDateTime($currentDate->year, $currentDate->month, 1, 0, 0, 0);
 
         return $date == Carbon::createFromTimestamp(strtotime("1 Monday", $monthStartDate->timestamp));
+    }
+
+    public static function __callStatic($method, $parameters) {
+      $instance = new static;
+      return call_user_func_array([$instance, $method], $parameters);
     }
 }

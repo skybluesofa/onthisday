@@ -64,7 +64,7 @@ class January extends Month {
         "last Sunday of January %Y" => ["World Leprosy Day"],
     ];
 
-    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+    private function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
         return $events;
     }
