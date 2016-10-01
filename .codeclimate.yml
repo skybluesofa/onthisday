@@ -10,6 +10,8 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    exclude_paths:
+    - "vendor/"
     checks:
       CleanCode/StaticAccess:
         enabled: false
