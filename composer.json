@@ -18,5 +18,10 @@
         "psr-4": {
             "Skybluesofa\\OnThisDay\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Skybluesofa\\OnThisDay\\Tests\\": "tests/"
+        }
     }
 }
