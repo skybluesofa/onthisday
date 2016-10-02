@@ -34,7 +34,11 @@ class October extends Month {
         "28" => ["Chocolate Day"],
         "29" => ["Hermit Day", "Oatmeal Day", "Cat Day"],
         "30" => ["Candy Corn Day"],
-        "31" => ["Carve a Pumpkin Day", "Magic Day", "Caramel Apple Day", "Knock Knock Joke Day","Halloween"],
+        "31" => ["Carve a Pumpkin Day", "Magic Day", "Caramel Apple Day", "Knock Knock Joke Day"],
+    ];
+
+    public static $recurringHolidays = [
+        "31" => ["Halloween"],
     ];
 
     public static $specificDateEvents = [
@@ -48,6 +52,8 @@ class October extends Month {
             "30" => ["New Moon"],
         ]
     ];
+
+    public static $specificDateHolidays = [];
 
     public static $configurationEvents = [
         "First Sunday of October %y" => ["Change A Light Day", "Country Inn Bed And Breakfast Day", "Intergeneration Day", "International African Diaspora Day", "World Communion Day"],
@@ -68,7 +74,14 @@ class October extends Month {
         "Fourth Sunday of October %y" => ["Mother-in-Law Day"],
     ];
 
+    public static $configurationHolidays = [];
+
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+        $events = [];
+        return $events;
+    }
+
+    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
         return $events;
     }

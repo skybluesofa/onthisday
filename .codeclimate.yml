@@ -19,5 +19,7 @@ ratings:
   paths:
   - "**.php"
 exclude_paths:
-  - tests/
+  - "tests/"
+  - "tests/**.php"
   - "**/vendor/"
+  - "**/vendor/**.php"

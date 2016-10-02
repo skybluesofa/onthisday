@@ -3,6 +3,7 @@ namespace Skybluesofa\OnThisDay;
 
 use Carbon\Carbon;
 use Skybluesofa\OnThisDay\Data\Parser;
+use Skybluesofa\Chainable\Traits\Chainable;
 
 /*
 The easiest implementation is to call
@@ -27,6 +28,7 @@ You can also re-add 'standard' results by chaining like this:
 # OnThisDay::withStandardEvents()->getEvents('1/1/2016');
 */
 class OnThisDay {
+    use Chainable;
   private static $date = null;
   private $locale = 'en_US';
   private $customBaseClass = false;
@@ -56,12 +58,12 @@ class OnThisDay {
       ->getEvents();
   }
 
-  public function __call($method, $parameters) {
-    return call_user_func_array([$this, $method], $parameters);
-  }
-
-  public static function __callStatic($method, $parameters) {
-    $instance = new static;
-    return call_user_func_array([$instance, $method], $parameters);
+  private function getHolidays($date=null) {
+    $parser = new Parser($this->locale);
+    return $parser
+      ->setDate($date ? Carbon::parse($date) : Carbon::now())
+      ->setCustomBaseClass($this->customBaseClass)
+      ->setUseStandardEvents($this->useStandardEvents)
+      ->getHolidays();
   }
 }

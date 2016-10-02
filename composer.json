@@ -12,7 +12,8 @@
     }],
     "require": {
         "php": ">=5.3.0",
-        "nesbot/carbon": "~1.20"
+        "nesbot/carbon": "~1.20",
+        "skybluesofa/chainable": "dev-master"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master"
@@ -20,6 +21,11 @@
     "autoload": {
         "psr-4": {
             "Skybluesofa\\OnThisDay\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Skybluesofa\\OnThisDay\\Tests\\": "tests"
         }
     }
 }

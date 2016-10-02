@@ -43,6 +43,8 @@ class February extends Month {
         ]
     ];
 
+    public static $specificDateHolidays = [];
+
     public static $configurationEvents = [
         "first Tuesday of February %y" => ["AfricanAmericanCoachesDay"],
         "first Wednesday of February %y" => ["NationalSigningDay"],
@@ -60,6 +62,8 @@ class February extends Month {
 
     ];
 
+    public static $configurationHolidays = [];
+
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
         if ($date->toDateString() == date("Y-m-d", strtotime("last sunday", strtotime("2/14/".$date->year)))) {
@@ -69,6 +73,11 @@ class February extends Month {
                 || ($date->toDateString() == date("Y-m-d", strtotime("last tuesday of February ".$date->year)))) {
             $events[] = "MuseumAdvocacyDay";
         }
+        return $events;
+    }
+
+    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+        $events = [];
         return $events;
     }
 }

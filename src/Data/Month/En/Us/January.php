@@ -5,7 +5,7 @@ use Skybluesofa\OnThisDay\Data\Contract\Month;
 
 class January extends Month {
     public static $recurringEvents = [
-        "1" => ["Copyright Law Day", "Commitment Day", "Ellis Island Day", "Euro Day", "First Foot Day", "Global Family Day", "Apple Gifting Day", "National Bloody Mary Day", "Public Domain Day", "World Day of Peace", "New Year's Day"],
+        "1" => ["Copyright Law Day", "Commitment Day", "Ellis Island Day", "Euro Day", "First Foot Day", "Global Family Day", "Apple Gifting Day", "National Bloody Mary Day", "Public Domain Day", "World Day of Peace"],
         "2" => ["National Buffet Day", "National Motivation and Inspiration Day", "National Personal Trainer Awareness Day", "National Science Fiction Day", "Pet Travel and Safety Day", "National Cream Puff Day"],
         "3" => ["Drinking Straw Day", "J R R Tolkien Day", "National Chocolate Covered Cherry Day", "Fruitcake Toss Day"],
         "4" => ["National Trivia Day", "Dimpled Chad Day", "Tom Thumb Day", "World Braille Day", "World Hypnotism Day"],
@@ -38,6 +38,10 @@ class January extends Month {
         "31" => ["Appreciate Your Social Security Check Day", "Inspire Your Heart with Art Day", "Backward Day"],
     ];
 
+    public static $recurringHolidays = [
+        "1" => ["New Year's Day"],
+    ];
+
     public static $specificDateEvents = [
         "2016" => [
             "3" => ["Quadrantids Meteor Shower"],
@@ -48,6 +52,8 @@ class January extends Month {
             "20" => ["Inauguration Day"],
         ]
     ];
+
+    public static $specificDateHolidays = [];
 
     public static $configurationEvents = [
         "first Monday of January %Y" => ["Thank God Its Monday Day", "Divorce Monday", "National Weigh in Day", "Blue Monday"],
@@ -64,7 +70,14 @@ class January extends Month {
         "last Sunday of January %Y" => ["World Leprosy Day"],
     ];
 
+    public static $configurationHolidays = [];
+
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+        $events = [];
+        return $events;
+    }
+
+    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
         return $events;
     }
