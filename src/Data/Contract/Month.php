@@ -1,7 +1,11 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Contract;
 
+use Skybluesofa\Chainable\Traits\Chainable;
+
 abstract class Month {
+    use Chainable;
+
     /*
     An array of dates and events in this format:
     [ '31' => ['abc','xyz'] ]
@@ -85,10 +89,5 @@ abstract class Month {
         $monthStartDate->setDateTime($currentDate->year, $currentDate->month, 1, 0, 0, 0);
 
         return $date == Carbon::createFromTimestamp(strtotime("1 Monday", $monthStartDate->timestamp));
-    }
-
-    public static function __callStatic($method, $parameters) {
-      $instance = new static;
-      return call_user_func_array([$instance, $method], $parameters);
     }
 }
