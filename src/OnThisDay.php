@@ -68,12 +68,7 @@ class OnThisDay {
   }
 
   private function getEventsAndHolidays($date=null) {
-      $parser = new Parser($this->locale);
-      return $parser
-        ->setDate($date ? Carbon::parse($date) : Carbon::now())
-        ->setCustomBaseClass($this->customBaseClass)
-        ->setUseStandardEvents($this->useStandardEvents)
-        ->getHolidays();
+    $parser = new Parser($this->locale);
     return array_merge(
         $parser
             ->setDate($date ? Carbon::parse($date) : Carbon::now())
