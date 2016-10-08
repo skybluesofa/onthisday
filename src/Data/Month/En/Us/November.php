@@ -68,20 +68,20 @@ class November extends Month {
 
         $thanksgiving = new \Carbon\Carbon('Fourth Thursday of November ' . $date->year);
 
-        if ($date->toDateString == $thanksgiving->copy()->addDay()->toDateString) {
+        if ($date->toDateString() == $thanksgiving->copy()->addDay()->toDateString()) {
             $events[] = "Maize Day";
         }
 
-        if ($date->toDateString == $thanksgiving->copy()->next(\Carbon\Carbon::FRIDAY)->toDateString) {
+        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::FRIDAY)->toDateString()) {
             $events[] = "Black Friday";
             $events[] = "Buy Nothing Day";
         }
 
-        if ($date->toDateString == $thanksgiving->copy()->next(\Carbon\Carbon::SATURDAY)->toDateString) {
+        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::SATURDAY)->toDateString()) {
             $events[] = "Small Business Saturday";
         }
 
-        if ($date->toDateString == $thanksgiving->copy()->next(\Carbon\Carbon::MONDAY)->toDateString) {
+        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::MONDAY)->toDateString()) {
             $events[] = "Cyber Monday";
         }
 
