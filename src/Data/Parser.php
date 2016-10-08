@@ -185,7 +185,7 @@ class Parser {
           foreach ($monthClass::$configurationHolidays as $configuration => $holidayList) {
             $configuration = str_replace(['%y','%Y'], $monthStartDate->year, $configuration);
             if ($this->carbonDate==Carbon::createFromTimestamp(strtotime($configuration))) {
-              $holidays = array_merge($holidays, $eventList);
+              $holidays = array_merge($holidays, $holidayList);
             }
           }
         }
