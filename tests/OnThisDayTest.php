@@ -33,6 +33,15 @@ class OnThisDayTest extends PHPUnit_Framework_TestCase {
 		$this->assertContains ('Halloween', OnThisDay::getHolidays('10/31/2016'));
 		$this->assertContains ('Halloween', OnThisDay::getEventsAndHolidays('10/31/2016'));
 	}
+	function test_november_object () {
+		$this->assertFileExists(__DIR__.'/../src/Data/Month/En/Us/November.php');
+		$this->assertContains ('Men Make Dinner Day', OnThisDay::getEvents('11/3/2016'));
+		$this->assertContains ('Take A Hike Day', OnThisDay::getEvents('11/17/2016'));
+		$this->assertContains ('Black Friday', OnThisDay::getEvents('11/25/2016'));
+		$this->assertNotContains ('Thanksgiving', OnThisDay::getEvents('11/24/2016'));
+		$this->assertContains ('Thanksgiving', OnThisDay::getHolidays('11/24/2016'));
+		$this->assertContains ('Thanksgiving', OnThisDay::getEventsAndHolidays('11/24/2016'));
+	}
 	function test_december_object () {
 		//$this->assertFileExists(__DIR__.'/../src/Data/Month/En/Us/December.php');
 		//$this->assertContains ("New Year's Eve", OnThisDay::getEvents('12/31/2016'));
