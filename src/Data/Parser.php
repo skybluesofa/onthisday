@@ -44,7 +44,7 @@ class Parser {
     return $this;
   }
 
-  public function setUseStandardEvents($useStandardEvents) {
+  public function setUseStandardEvents($useStandardEvents=true) {
     $this->useStandardEvents = $useStandardEvents ? true : false;
     return $this;
   }
