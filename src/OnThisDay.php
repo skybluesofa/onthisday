@@ -83,5 +83,18 @@ class OnThisDay {
     );
   }
 
+  private function whenIs($event, $year=null) {
+    /*
+    Should return an array of Carbon dates for a given event/holiday. The reason
+    for the array value is that, there are some events that have the same name,
+    but have been proposed by different sponsors. In this case, both dates would
+    be returned in the array.
 
+    For instance, if the method OnThisDay::whenIs('Halloween') is run during 2016,
+    the return value would be [Carbon '10/31/2016'].
+
+    Another instance, if the method OnThisDay::whenIs('Thanksgiving', '2012') is
+    run, the return value would be [Carbon '11/22/2012'].
+    */
+  }
 }
