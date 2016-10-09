@@ -1,5 +1,6 @@
 <?php
 use Skybluesofa\OnThisDay\OnThisDay;
+use Carbon\Carbon;
 
 class OnThisDayTest extends PHPUnit_Framework_TestCase {
 	function test_january_data() {
@@ -54,6 +55,21 @@ class OnThisDayTest extends PHPUnit_Framework_TestCase {
 	}
 	function test_december_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Month/En/Us/December.php');
+	}
+	function test_when_is_event() {
+		/*
+		$this->assertContainsOnlyInstancesOf(Carbon::class, OnThisDay::whenIs('Halloween', '2016'));
+		$this->assertContains('10/31/2016', array_map(
+        function($halloweenDate) { return $halloweenDate->format('m/d/Y') },
+        OnThisDay::whenIs('Halloween', '2016')
+		));
+		$this->assertCount(1, OnThisDay::whenIs('Thanksgiving', '2012'))
+		$this->assertContains('11/22/2012', array_map(
+        function($halloweenDate) { return $halloweenDate->format('m/d/Y') },
+        OnThisDay::whenIs('Thanksgiving', '2012')
+		));
+		$this->assertCount(0, OnThisDay::whenIs('Some Made-up Holiday about Aliens', '2012'));
+		*/
 	}
 }
 ?>
