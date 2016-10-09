@@ -96,113 +96,96 @@ class Parser {
     return $this->localePath;
   }
 
+  private function getMonthClasses() {
+    $monthClasses = [];
+    foreach (array_keys($this->classPaths) as $classType) {
+      if ($monthClass = $this->getMonthClass($classType)) {
+        $monthClasses[] = $monthClass;
+      }
+    }
+    return $monthClasses;
+  }
+
   private function getRecurringDateBasedEvents() {
-    $events = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (property_exists($monthClass, 'recurringEvents') && isset($monthClass::$recurringEvents[$this->day])) {
-          $events = array_merge($events, $monthClass::$recurringEvents[$this->day]);
-        }
-      }
-    }
-    return $events;
-  }
-
-  private function getSpecificDateBasedEvents() {
-    $events = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (property_exists($monthClass, 'recurringEvents') && isset($monthClass::$specificDateEvents[$this->year][$this->day])) {
-          $events = array_merge($events, $monthClass::$specificDateEvents[$this->year][$this->day]);
-        }
-      }
-    }
-    return $events;
-  }
-
-  private function getRecurringConfigurationBasedEvents() {
-    $events = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (property_exists($monthClass, 'configurationEvents')) {
-          $monthStartDate = Carbon::now();
-          $monthStartDate->setDateTime($this->year, $this->month, 1, 0, 0, 0);
-          foreach ($monthClass::$configurationEvents as $configuration => $eventList) {
-            $configuration = str_replace(['%y','%Y'], $monthStartDate->year, $configuration);
-            if ($this->carbonDate==Carbon::createFromTimestamp(strtotime($configuration))) {
-              $events = array_merge($events, $eventList);
-            }
-          }
-        }
-      }
-    }
-    return $events;
-  }
-
-  private function getRecurringAdvancedConfigurationBasedEvents() {
-    $events = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (method_exists($monthClass, 'getRecurringAdvancedConfigurationBasedEvents')) {
-          $events = array_merge($events, $monthClass::getRecurringAdvancedConfigurationBasedEvents($this->carbonDate));
-        }
-      }
-    }
-    return $events;
+    return $this->getRecurringDateBasedItems('events');
   }
 
   private function getRecurringDateBasedHolidays() {
-    $holidays = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (property_exists($monthClass, 'recurringHolidays') && isset($monthClass::$recurringHolidays[$this->day])) {
-          $holidays = array_merge($holidays, $monthClass::$recurringHolidays[$this->day]);
-        }
+    return $this->getRecurringDateBasedItems('holidays');
+  }
+
+  private function getRecurringDateBasedItems($type=null) {
+    $propertyName = 'recurring'.ucfirst(strtolower($type));
+    $items = [];
+    foreach ($this->getMonthClasses() as $monthClass) {
+      if (property_exists($monthClass, $propertyName) && isset($monthClass::$$propertyName[$this->day])) {
+        $items = array_merge($items, $monthClass::$$propertyName[$this->day]);
       }
     }
-    return $holidays;
+    return $items;
+  }
+
+  private function getSpecificDateBasedEvents() {
+    return $this->getSpecificDateBasedItems('events');
   }
 
   private function getSpecificDateBasedHolidays() {
-    $holidays = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (property_exists($monthClass, 'recurringHolidays') && isset($monthClass::$specificDateHolidays[$this->year][$this->day])) {
-          $holidays = array_merge($holidays, $monthClass::$specificDateHolidays[$this->year][$this->day]);
-        }
+    return $this->getSpecificDateBasedItems('holidays');
+  }
+
+  private function getSpecificDateBasedItems($type=null) {
+    $propertyName = 'specificDate'.ucfirst(strtolower($type));
+    $items = [];
+    foreach ($this->getMonthClasses() as $monthClass) {
+      if (property_exists($monthClass, $propertyName) && isset($monthClass::$$propertyName[$this->year][$this->day])) {
+        $items = array_merge($items, $monthClass::$$propertyName[$this->year][$this->day]);
       }
     }
-    return $holidays;
+    return $items;
+  }
+
+  private function getRecurringConfigurationBasedEvents() {
+    return $this->getRecurringConfigurationBasedItems('events');
   }
 
   private function getRecurringConfigurationBasedHolidays() {
-    $holidays = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (property_exists($monthClass, 'configurationHolidays')) {
-          $monthStartDate = Carbon::now();
-          $monthStartDate->setDateTime($this->year, $this->month, 1, 0, 0, 0);
-          foreach ($monthClass::$configurationHolidays as $configuration => $holidayList) {
-            $configuration = str_replace(['%y','%Y'], $monthStartDate->year, $configuration);
-            if ($this->carbonDate==Carbon::createFromTimestamp(strtotime($configuration))) {
-              $holidays = array_merge($holidays, $holidayList);
-            }
+    return $this->getRecurringConfigurationBasedItems('holidays');
+  }
+
+  private function getRecurringConfigurationBasedItems($type=null) {
+    $propertyName = 'configuration'.ucfirst(strtolower($type));
+    $items = [];
+    foreach ($this->getMonthClasses() as $monthClass) {
+      if (property_exists($monthClass, $propertyName)) {
+        $monthStartDate = Carbon::now();
+        $monthStartDate->setDateTime($this->year, $this->month, 1, 0, 0, 0);
+        foreach ($monthClass::$$propertyName as $configuration => $itemList) {
+          $configuration = str_replace(['%y','%Y'], $monthStartDate->year, $configuration);
+          if ($this->carbonDate==Carbon::createFromTimestamp(strtotime($configuration))) {
+            $items = array_merge($items, $itemList);
           }
         }
       }
     }
-    return $holidays;
+    return $items;
+  }
+
+  private function getRecurringAdvancedConfigurationBasedEvents() {
+    return $this->getRecurringAdvancedConfigurationBasedItems('events');
   }
 
   private function getRecurringAdvancedConfigurationBasedHolidays() {
-    $holidays = [];
-    foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
-        if (method_exists($monthClass, 'getRecurringAdvancedConfigurationBasedHolidays')) {
-          $holidays = array_merge($holidays, $monthClass::getRecurringAdvancedConfigurationBasedHolidays($this->carbonDate));
-        }
+    return $this->getRecurringAdvancedConfigurationBasedItems('holidays');
+  }
+
+  private function getRecurringAdvancedConfigurationBasedItems($type=null) {
+    $methodName = 'getRecurringAdvancedConfigurationBased'.ucfirst(strtolower($type));
+    $items = [];
+    foreach ($this->getMonthClasses() as $monthClass) {
+      if (method_exists($monthClass, $methodName)) {
+        $items = array_merge($items, call_user_func_array([$monthClass, $methodName], [$this->carbonDate]));
       }
     }
-    return $holidays;
+    return $items;
   }
 }
