@@ -74,7 +74,7 @@ class Parser {
     );
   }
 
-  private function getMonthClass($classType='standard') {
+  private function getMonthDataClass($classType='standard') {
     if (($classType=='standard' && !$this->useStandardEvents) || !array_key_exists($classType, $this->classPaths) || !$this->classPaths[$classType]) {
       return false;
     }
@@ -99,7 +99,7 @@ class Parser {
   private function getMonthClasses() {
     $monthClasses = [];
     foreach (array_keys($this->classPaths) as $classType) {
-      if ($monthClass = $this->getMonthClass($classType)) {
+      if ($monthClass = $this->getMonthDataClass($classType)) {
         $monthClasses[] = $monthClass;
       }
     }
