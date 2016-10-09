@@ -118,8 +118,8 @@ class Parser {
     $propertyName = 'recurring'.ucfirst(strtolower($type));
     $items = [];
     foreach ($this->getMonthClasses() as $monthClass) {
-      if (property_exists($monthClass, $propertyName) && isset($monthClass::$$propertyName[$this->day])) {
-        $items = array_merge($items, $monthClass::$$propertyName[$this->day]);
+      if (property_exists($monthClass, $propertyName) && isset($monthClass::$propertyName[$this->day])) {
+        $items = array_merge($items, $monthClass::$propertyName[$this->day]);
       }
     }
     return $items;
@@ -137,8 +137,8 @@ class Parser {
     $propertyName = 'specificDate'.ucfirst(strtolower($type));
     $items = [];
     foreach ($this->getMonthClasses() as $monthClass) {
-      if (property_exists($monthClass, $propertyName) && isset($monthClass::$$propertyName[$this->year][$this->day])) {
-        $items = array_merge($items, $monthClass::$$propertyName[$this->year][$this->day]);
+      if (property_exists($monthClass, $propertyName) && isset($monthClass::$propertyName[$this->year][$this->day])) {
+        $items = array_merge($items, $monthClass::$propertyName[$this->year][$this->day]);
       }
     }
     return $items;
@@ -159,7 +159,7 @@ class Parser {
       if (property_exists($monthClass, $propertyName)) {
         $monthStartDate = Carbon::now();
         $monthStartDate->setDateTime($this->year, $this->month, 1, 0, 0, 0);
-        foreach ($monthClass::$$propertyName as $configuration => $itemList) {
+        foreach ($monthClass::$propertyName as $configuration => $itemList) {
           $configuration = str_replace(['%y','%Y'], $monthStartDate->year, $configuration);
           if ($this->carbonDate==Carbon::createFromTimestamp(strtotime($configuration))) {
             $items = array_merge($items, $itemList);
