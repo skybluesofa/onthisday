@@ -1,20 +1,25 @@
 <?php
-namespace Skybluesofa\OnThisDay\Data\Month\En\Us;
+
+namespace Skybluesofa\OnThisDay\Tests\Custom\En\Us\Month;
 
 use Skybluesofa\OnThisDay\Data\Contract\Month;
 
-class May extends Month {
-    public static $recurringEvents = [];
+class July extends Month
+{
+    public static $recurringEvents = [
+        "1" => ["Some Custom Event"],
+    ];
+
+    public static $recurringHolidays = [];
 
     public static $specificDateEvents = [];
-
-    public static $specificDateHolidays = [];
 
     public static $configurationEvents = [];
 
     public static $configurationHolidays = [];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date)
+    {
         $events = [];
         return $events;
     }
