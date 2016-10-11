@@ -1,9 +1,9 @@
 <?php
-namespace Skybluesofa\OnThisDay\Data\Month\En\Us;
+namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
 use Skybluesofa\OnThisDay\Data\Contract\Month;
 
-class March extends Month {
+class August extends Month {
     public static $recurringEvents = [];
 
     public static $specificDateEvents = [];

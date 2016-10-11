@@ -16,7 +16,7 @@ class Parser {
 
   private $classPaths = [
     'custom' => null,
-    'standard' => '\\Skybluesofa\\OnThisDay\\Data\\Month',
+    'standard' => '\\Skybluesofa\\OnThisDay\\Data\\Region',
   ];
   private $useStandardEvents = true;
 
@@ -80,7 +80,7 @@ class Parser {
     }
 
     $monthName = date("F", mktime(0, 0, 0, $this->carbonDate->month, 1));
-    $classPath = $this->classPaths[$classType].$this->getLocalePath().$monthName;
+    $classPath = $this->classPaths[$classType].$this->getLocalePath()."Month\\".$monthName;
 
     if (!class_exists($classPath)) {
       return false;
