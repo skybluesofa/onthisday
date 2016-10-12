@@ -2,6 +2,7 @@
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
 use Skybluesofa\OnThisDay\Data\Contract\Month;
+use Skybluesofa\OnThisDay\Data\Region\En\Us\Helpers\Easter;
 
 class February extends Month {
     public static $recurringEvents = [
@@ -71,8 +72,15 @@ class February extends Month {
         }
         if (($date->toDateString() == date("Y-m-d", strtotime("last monday of February ".$date->year)))
                 || ($date->toDateString() == date("Y-m-d", strtotime("last tuesday of February ".$date->year)))) {
-            $events[] = "MuseumAdvocacyDay";
+            $events[] = "Museum Advocacy Day";
         }
+        if ($date->toDateString() == Easter::getFatTuesdayDate($date)->toDateString()) {
+            $events[] = "Fat Tuesday";
+        }
+        if ($date->toDateString() == Easter::getMardiGrasDate($date)->toDateString()) {
+            $events[] = "Mardi Gras";
+        }
+
         return $events;
     }
 
