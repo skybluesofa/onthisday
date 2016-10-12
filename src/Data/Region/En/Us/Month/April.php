@@ -14,16 +14,24 @@ class April extends Month {
 
     public static $configurationHolidays = [];
 
+    public static $recurringAdvancedConfigurationEvents = [];
+
+    public static $recurringAdvancedConfigurationHolidays = [
+      "Easter"
+    ];
+
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-        $events = [];
+        $events = self::$recurringAdvancedConfigurationEvents;
         return $events;
     }
 
     protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-        $events = [];
-        if ($date->toDateString() == Easter::getEasterDate($date)->toDateString()) {
-            $events[] = "Easter";
+        $events = self::$recurringAdvancedConfigurationHolidays;
+
+        if ($date->toDateString() != Easter::getEasterDate($date)->toDateString()) {
+            unset ($events[array_search("Easter",$events)]);
         }
+        
         return $events;
     }
 }

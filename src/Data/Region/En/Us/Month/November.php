@@ -63,33 +63,36 @@ class November extends Month {
         "Fourth Thursday of November %y" => ["Thanksgiving"],
     ];
 
+    public static $recurringAdvancedConfigurationEvents = [
+      "Maize Day", "Black Friday", "Buy Nothing Day", "Small Business Saturday", "Cyber Monday"
+    ];
+
+    public static $recurringAdvancedConfigurationHolidays = [];
+
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-        $events = [];
+        $events = self::$recurringAdvancedConfigurationEvents;
 
         $thanksgiving = new \Carbon\Carbon('Fourth Thursday of November ' . $date->year);
 
-        if ($date->toDateString() == $thanksgiving->copy()->addDay()->toDateString()) {
-            $events[] = "Maize Day";
+        if ($date->toDateString() != $thanksgiving->copy()->addDay()->toDateString()) {
+          unset ($events[array_search("Maize Day",$events)]);
         }
-
-        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::FRIDAY)->toDateString()) {
-            $events[] = "Black Friday";
-            $events[] = "Buy Nothing Day";
+        if ($date->toDateString() != $thanksgiving->copy()->next(\Carbon\Carbon::FRIDAY)->toDateString()) {
+          unset ($events[array_search("Black Friday",$events)]);
+          unset ($events[array_search("Buy Nothing Day",$events)]);
         }
-
-        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::SATURDAY)->toDateString()) {
-            $events[] = "Small Business Saturday";
+        if ($date->toDateString() != $thanksgiving->copy()->next(\Carbon\Carbon::SATURDAY)->toDateString()) {
+          unset ($events[array_search("Small Business Saturday",$events)]);
         }
-
-        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::MONDAY)->toDateString()) {
-            $events[] = "Cyber Monday";
+        if ($date->toDateString() != $thanksgiving->copy()->next(\Carbon\Carbon::MONDAY)->toDateString()) {
+          unset ($events[array_search("Cyber Monday",$events)]);
         }
 
         return $events;
     }
 
     protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-        $events = [];
+        $events = self::$recurringAdvancedConfigurationHolidays;
         return $events;
     }
 }

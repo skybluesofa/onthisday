@@ -72,13 +72,17 @@ class January extends Month {
 
     public static $configurationHolidays = [];
 
+    public static $recurringAdvancedConfigurationEvents = [];
+
+    public static $recurringAdvancedConfigurationHolidays = [];
+
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-        $events = [];
+        $events = self::$recurringAdvancedConfigurationEvents;
         return $events;
     }
 
     protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-        $events = [];
+        $events = self::$recurringAdvancedConfigurationHolidays;
         return $events;
     }
 }

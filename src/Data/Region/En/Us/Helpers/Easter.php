@@ -5,11 +5,11 @@ use Carbon\Carbon;
 
 class Easter {
   public static function getFatTuesdayDate(Carbon $date) {
-    return Carbon::createFromTimestamp(easter_date($date->year))->subDays(48);
+    return Carbon::createFromTimestamp(easter_date($date->year))->subDays(47);
   }
 
   public static function getMardiGrasDate(Carbon $date) {
-    return Carbon::createFromTimestamp(easter_date($date->year))->subDays(47);
+    return Carbon::createFromTimestamp(easter_date($date->year))->subDays(46);
   }
 
   public static function getEasterDate(Carbon $date) {

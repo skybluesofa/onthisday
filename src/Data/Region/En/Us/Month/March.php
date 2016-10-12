@@ -15,26 +15,35 @@ class March extends Month {
 
     public static $configurationHolidays = [];
 
+    public static $recurringAdvancedConfigurationEvents = [
+      "Fat Tuesday", "Mardi Gras"
+    ];
+
+    public static $recurringAdvancedConfigurationHolidays = [
+      "Easter"
+    ];
+
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-        $events = [];
+      $events = self::$recurringAdvancedConfigurationEvents;
 
-        if ($date->toDateString() == Easter::getFatTuesdayDate($date)->toDateString()) {
-            $events[] = "Fat Tuesday";
-        }
-        if ($date->toDateString() == Easter::getMardiGrasDate($date)->toDateString()) {
-            $events[] = "Mardi Gras";
-        }
+      if ($date->toDateString() != Easter::getFatTuesdayDate($date)->toDateString()) {
+        unset ($events[array_search("Fat Tuesday",$events)]);
+      }
+      if ($date->toDateString() != Easter::getMardiGrasDate($date)->toDateString()) {
+        unset ($events[array_search("Mardi Gras",$events)]);
+      }
 
-        return $events;
+      return $events;
     }
 
     protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-        $events = [];
+      $events = self::$recurringAdvancedConfigurationHolidays;
 
-        if ($date->toDateString() == Easter::getEasterDate($date)->toDateString()) {
-            $events[] = "Easter";
-        }
+      if ($date->toDateString() != Easter::getEasterDate($date)->toDateString()) {
+        unset ($events[array_search("Easter",$events)]);
+      }
 
-        return $events;
+      return $events;
     }
+
 }

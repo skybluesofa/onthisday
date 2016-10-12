@@ -53,15 +53,17 @@ class December extends Month
 
     public static $configurationHolidays = [];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date)
-    {
-        $events = [];
+    public static $recurringAdvancedConfigurationEvents = [];
+
+    public static $recurringAdvancedConfigurationHolidays = [];
+
+    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+        $events = self::$recurringAdvancedConfigurationEvents;
         return $events;
     }
 
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date)
-    {
-        $events = [];
+    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+        $events = self::$recurringAdvancedConfigurationHolidays;
         return $events;
     }
 }
