@@ -2,6 +2,7 @@
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
 use Skybluesofa\OnThisDay\Data\Contract\Month;
+use Carbon\Carbon;
 
 class November extends Month {
     public static $recurringEvents = [
@@ -64,7 +65,11 @@ class November extends Month {
     ];
 
     public static $recurringAdvancedConfigurationEvents = [
-      "Maize Day", "Black Friday", "Buy Nothing Day", "Small Business Saturday", "Cyber Monday"
+      "Maize Day" => "_getMaizeDayDate",
+      "Black Friday" => "_getBlackFridayDate",
+      "Buy Nothing Day" => "_getBuyNothingDate",
+      "Small Business Saturday" => "_getSmallBusinessSaturdayDate",
+      "Cyber Monday" => "_getCyberMondayDate",
     ];
 
     public static $recurringAdvancedConfigurationHolidays = [];
@@ -72,27 +77,42 @@ class November extends Month {
     protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = self::$recurringAdvancedConfigurationEvents;
 
-        $thanksgiving = new \Carbon\Carbon('Fourth Thursday of November ' . $date->year);
-
-        if ($date->toDateString() != $thanksgiving->copy()->addDay()->toDateString()) {
-          unset ($events[array_search("Maize Day",$events)]);
+        foreach ($events as $event=>$methodName) {
+          if (method_exists($this, $methodName)) {
+            $events[$event] = call_user_func([$this, $methodName], $date);
+          } else {
+            $events[$event] = null;
+          }
         }
-        if ($date->toDateString() != $thanksgiving->copy()->next(\Carbon\Carbon::FRIDAY)->toDateString()) {
-          unset ($events[array_search("Black Friday",$events)]);
-          unset ($events[array_search("Buy Nothing Day",$events)]);
-        }
-        if ($date->toDateString() != $thanksgiving->copy()->next(\Carbon\Carbon::SATURDAY)->toDateString()) {
-          unset ($events[array_search("Small Business Saturday",$events)]);
-        }
-        if ($date->toDateString() != $thanksgiving->copy()->next(\Carbon\Carbon::MONDAY)->toDateString()) {
-          unset ($events[array_search("Cyber Monday",$events)]);
-        }
-
         return $events;
     }
 
     protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = self::$recurringAdvancedConfigurationHolidays;
         return $events;
+    }
+
+    private function _getThanksgivingDate(Carbon $date) {
+      return new \Carbon\Carbon('Fourth Thursday of November ' . $date->year);
+    }
+
+    private function _getMaizeDayDate(Carbon $date) {
+      return $this->_getThanksgivingDate($date)->addDay();
+    }
+
+    private function _getBlackFridayDate(Carbon $date) {
+      return $this->_getThanksgivingDate($date)->addDay();
+    }
+
+    private function _getBuyNothingDate(Carbon $date) {
+      return $this->_getThanksgivingDate($date)->addDay();
+    }
+
+    private function _getSmallBusinessSaturdayDate(Carbon $date) {
+      return $this->_getThanksgivingDate($date)->next(Carbon::SATURDAY);
+    }
+
+    private function _getCyberMondayDate(Carbon $date) {
+      return $this->_getThanksgivingDate($date)->next(Carbon::MONDAY);
     }
 }
