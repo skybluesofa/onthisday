@@ -18,14 +18,7 @@ class July extends Month
 
     public static $configurationHolidays = [];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date)
-    {
-        $events = [];
-        return $events;
-    }
+    public static $recurringAdvancedConfigurationEvents = [];
 
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-        $events = [];
-        return $events;
-    }
+    public static $recurringAdvancedConfigurationHolidays = [];
 }

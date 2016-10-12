@@ -3,6 +3,7 @@ namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
 use Skybluesofa\OnThisDay\Data\Contract\Month;
 use Skybluesofa\OnThisDay\Data\Region\En\Us\Helpers\Easter;
+use Carbon\Carbon;
 
 class February extends Month {
   public static $recurringEvents = [
@@ -65,33 +66,30 @@ class February extends Month {
   public static $configurationHolidays = [];
 
   public static $recurringAdvancedConfigurationEvents = [
-    "Man Day", "Museum Advocacy Day", "Fat Tuesday", "Mardi Gras"
+    "Man Day" => "_getManDayDate",
+    "Museum Advocacy Day" => "_getMuseumAdvocacyDayDate",
+    "Fat Tuesday" => "_getFatTuesdayDate",
+    "Mardi Gras" => "_getMardiGrasDate",
   ];
 
   public static $recurringAdvancedConfigurationHolidays = [];
 
-  protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-    $events = self::$recurringAdvancedConfigurationEvents;
-
-    if ($date->toDateString() != date("Y-m-d", strtotime("last sunday", strtotime("2/14/".$date->year)))) {
-      unset ($events[array_search("Man Day",$events)]); // Sunday before Valentine"s Day
-    }
-    if (($date->toDateString() != date("Y-m-d", strtotime("last monday of February ".$date->year)))
-        && ($date->toDateString() != date("Y-m-d", strtotime("last tuesday of February ".$date->year)))) {
-      unset ($events[array_search("Museum Advocacy Day",$events)]);
-    }
-    if ($date->toDateString() != Easter::getFatTuesdayDate($date)->toDateString()) {
-      unset ($events[array_search("Fat Tuesday",$events)]);
-    }
-    if ($date->toDateString() != Easter::getMardiGrasDate($date)->toDateString()) {
-      unset ($events[array_search("Mardi Gras",$events)]);
-    }
-
-    return $events;
+  public static function _getFatTuesdayDate(Carbon $date) {
+    return Easter::getFatTuesdayDate($date);
   }
 
-  protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-    $events = self::$recurringAdvancedConfigurationHolidays;
-    return $events;
+  public static function _getMardiGrasDate(Carbon $date) {
+    return Easter::getMardiGrasDate($date);
+  }
+
+  public static function _getManDayDate(Carbon $date) {
+    return Carbon::createFromTimestamp(strtotime("last sunday", strtotime("2/14/".$date->year)));
+  }
+
+  public static function _getMuseumAdvocacyDayDate(Carbon $date) {
+    return [
+      Carbon::createFromTimestamp(strtotime("last monday of February ".$date->year)),
+      Carbon::createFromTimestamp(strtotime("last tuesday of February ".$date->year)),
+    ];
   }
 }

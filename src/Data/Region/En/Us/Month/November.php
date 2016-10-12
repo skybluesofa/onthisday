@@ -74,45 +74,27 @@ class November extends Month {
 
     public static $recurringAdvancedConfigurationHolidays = [];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-        $events = self::$recurringAdvancedConfigurationEvents;
-
-        foreach ($events as $event=>$methodName) {
-          if (method_exists($this, $methodName)) {
-            $events[$event] = call_user_func([$this, $methodName], $date);
-          } else {
-            $events[$event] = null;
-          }
-        }
-        return $events;
+    public static function _getThanksgivingDate(Carbon $date) {
+      return new Carbon('Fourth Thursday of November ' . $date->year);
     }
 
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-        $events = self::$recurringAdvancedConfigurationHolidays;
-        return $events;
+    public static function _getMaizeDayDate(Carbon $date) {
+      return self::_getThanksgivingDate($date)->addDay();
     }
 
-    private function _getThanksgivingDate(Carbon $date) {
-      return new \Carbon\Carbon('Fourth Thursday of November ' . $date->year);
+    public static function _getBlackFridayDate(Carbon $date) {
+      return self::_getThanksgivingDate($date)->addDay();
     }
 
-    private function _getMaizeDayDate(Carbon $date) {
-      return $this->_getThanksgivingDate($date)->addDay();
+    public static function _getBuyNothingDate(Carbon $date) {
+      return self::_getThanksgivingDate($date)->addDay();
     }
 
-    private function _getBlackFridayDate(Carbon $date) {
-      return $this->_getThanksgivingDate($date)->addDay();
+    public static function _getSmallBusinessSaturdayDate(Carbon $date) {
+      return self::_getThanksgivingDate($date)->next(Carbon::SATURDAY);
     }
 
-    private function _getBuyNothingDate(Carbon $date) {
-      return $this->_getThanksgivingDate($date)->addDay();
-    }
-
-    private function _getSmallBusinessSaturdayDate(Carbon $date) {
-      return $this->_getThanksgivingDate($date)->next(Carbon::SATURDAY);
-    }
-
-    private function _getCyberMondayDate(Carbon $date) {
-      return $this->_getThanksgivingDate($date)->next(Carbon::MONDAY);
+    public static function _getCyberMondayDate(Carbon $date) {
+      return self::_getThanksgivingDate($date)->next(Carbon::MONDAY);
     }
 }
