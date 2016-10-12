@@ -61,6 +61,12 @@ class OnThisDayTest extends PHPUnit_Framework_TestCase {
 		$this->assertContains ('Christmas', OnThisDay::getHolidays('12/25/2016'));
 		$this->assertContains ('Christmas', OnThisDay::getEventsAndHolidays('12/25/2016'));
 	}
+	function test_helper_data() {
+		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Helpers/Easter.php');
+		$this->assertContains ('Easter', OnThisDay::getHolidays('3/27/2016'));
+		$this->assertContains ('Fat Tuesday', OnThisDay::getEvents('2/8/2016'));
+		$this->assertContains ('Mardi Gras', OnThisDay::getEvents('2/9/2016'));
+	}
 	function test_when_is_event() {
 		/*
 		$this->assertContainsOnlyInstancesOf(Carbon::class, OnThisDay::whenIs('Halloween', '2016'));
