@@ -105,7 +105,7 @@ abstract class Month {
     Returns an array of dates and events created by some rules
     */
     public static function getRecurringAdvancedConfigurationBasedEvents(Carbon $date) {
-        $class = new Static;
+        $class = new static;
         $events = $class::$recurringAdvancedConfigurationEvents;
 
         foreach ($events as $event=>$methodName) {
@@ -119,7 +119,7 @@ abstract class Month {
     Returns an array of holidays created by some rules
     */
     public static function getRecurringAdvancedConfigurationBasedHolidays(Carbon $date) {
-        $class = new Static;
+        $class = new static;
         $events = $class::$recurringAdvancedConfigurationHolidays;
 
         foreach ($events as $event=>$methodName) {
