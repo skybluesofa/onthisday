@@ -187,7 +187,20 @@ class Parser {
     $items = [];
     foreach ($this->getMonthClasses() as $monthClass) {
       if (method_exists($monthClass, $methodName)) {
-        $items = array_merge($items, call_user_func_array([$monthClass, $methodName], [$this->carbonDate]));
+        $events = call_user_func_array([$monthClass, $methodName], [$this->carbonDate]);
+        foreach ($events as $event=>$date) {
+          $dates = (is_array($date)) ? $date : [$date];
+          $removeEventFromList = false;
+          foreach ($dates as $date) {
+            if (is_null($date) || $this->carbonDate->toDateString()!=$date->toDateString()) {
+              $removeEventFromList = true;
+            }
+          }
+          if ($removeEventFromList) {
+            unset($events[$event]);
+          }
+        }
+        $items = array_merge($items, array_keys($events));
       }
     }
     return $items;

@@ -3,6 +3,7 @@ namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
 use Skybluesofa\OnThisDay\Data\Contract\Month;
 use Skybluesofa\OnThisDay\Data\Region\En\Us\Helpers\Easter;
+use Carbon\Carbon;
 
 class March extends Month {
     public static $recurringEvents = [];
@@ -16,34 +17,24 @@ class March extends Month {
     public static $configurationHolidays = [];
 
     public static $recurringAdvancedConfigurationEvents = [
-      "Fat Tuesday", "Mardi Gras"
+      "Fat Tuesday" => "_getFatTuesdayDate",
+      "Mardi Gras" => "_getMardiGrasDate",
     ];
 
     public static $recurringAdvancedConfigurationHolidays = [
-      "Easter"
+      "Easter" => "_getEasterDate",
     ];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-      $events = self::$recurringAdvancedConfigurationEvents;
-
-      if ($date->toDateString() != Easter::getFatTuesdayDate($date)->toDateString()) {
-        unset ($events[array_search("Fat Tuesday",$events)]);
-      }
-      if ($date->toDateString() != Easter::getMardiGrasDate($date)->toDateString()) {
-        unset ($events[array_search("Mardi Gras",$events)]);
-      }
-
-      return $events;
+    public static function _getFatTuesdayDate(Carbon $date) {
+      return Easter::getFatTuesdayDate($date);
     }
 
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-      $events = self::$recurringAdvancedConfigurationHolidays;
+    public static function _getMardiGrasDate(Carbon $date) {
+      return Easter::getMardiGrasDate($date);
+    }
 
-      if ($date->toDateString() != Easter::getEasterDate($date)->toDateString()) {
-        unset ($events[array_search("Easter",$events)]);
-      }
-
-      return $events;
+    public static function _getEasterDate(Carbon $date) {
+      return Easter::getEasterDate($date);
     }
 
 }

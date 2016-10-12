@@ -2,6 +2,8 @@
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
 use Skybluesofa\OnThisDay\Data\Contract\Month;
+use Skybluesofa\OnThisDay\Data\Region\En\Us\Helpers\Easter;
+use Carbon\Carbon;
 
 class April extends Month {
     public static $recurringEvents = [];
@@ -17,21 +19,10 @@ class April extends Month {
     public static $recurringAdvancedConfigurationEvents = [];
 
     public static $recurringAdvancedConfigurationHolidays = [
-      "Easter"
+      "Easter" => "_getEasterDate",
     ];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
-        $events = self::$recurringAdvancedConfigurationEvents;
-        return $events;
-    }
-
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
-        $events = self::$recurringAdvancedConfigurationHolidays;
-
-        if ($date->toDateString() != Easter::getEasterDate($date)->toDateString()) {
-            unset ($events[array_search("Easter",$events)]);
-        }
-        
-        return $events;
+    public static function _getEasterDate(Carbon $date) {
+      return Easter::getEasterDate($date);
     }
 }

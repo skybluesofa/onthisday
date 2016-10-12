@@ -2,13 +2,14 @@
 namespace Skybluesofa\OnThisDay\Data\Contract;
 
 use Skybluesofa\Chainable\Traits\Chainable;
+use Carbon\Carbon;
 
 abstract class Month {
     use Chainable;
 
     /*
     An array of dates and events in this format:
-    [ '31' => ['abc','xyz'] ]
+    [ '31' => ['abc','xyz'], ]
     Where:
     '31' means the 31st of the month named by the name of the object of any given year
     'abc' and 'xyz' are events for the 31st day of this month
@@ -17,7 +18,7 @@ abstract class Month {
 
     /*
     An array of holidays in this format:
-    [ '0131' => ['abc','xyz'] ]
+    [ '0131' => ['abc','xyz'], ]
     Where:
     '31' means the 31st of the month named by the name of the object of any given year
     'abc' and 'xyz' are holidays for the 31st day of this month
@@ -27,7 +28,7 @@ abstract class Month {
     /*
     An array of dates and events in this format:
     [ '2008' =>
-        [ '31' => ['abc','xyz'] ]
+        [ '31' => ['abc','xyz'], ],
     ]
     Where:
     '2008' is the specific year for these events
@@ -39,7 +40,7 @@ abstract class Month {
     /*
     An array of holidays in this format:
     [ '2008' =>
-        [ '31' => ['abc','xyz'] ]
+        [ '31' => ['abc','xyz'], ],
     ]
     Where:
     '2008' is the specific year for these holidays
@@ -52,8 +53,8 @@ abstract class Month {
     An array of dates and events in this format:
     [
         "first Monday of January %Y" => ["abc", "xyz"],
-        "second Monday of January %Y" => ["lmn"]
-        "last Monday of January %Y" => ["pqr"]
+        "second Monday of January %Y" => ["lmn"],
+        "last Monday of January %Y" => ["pqr"],
     ]
     Where:
     The key is 'strtotime()' parseable and %Y is replaceable by the current year
@@ -65,8 +66,8 @@ abstract class Month {
     An array of holidays in this format:
     [
         "first Monday of January %Y" => ["abc", "xyz"],
-        "second Monday of January %Y" => ["lmn"]
-        "last Monday of January %Y" => ["pqr"]
+        "second Monday of January %Y" => ["lmn"],
+        "last Monday of January %Y" => ["pqr"],
     ]
     Where:
     The key is 'strtotime()' parseable and %Y is replaceable by the current year
@@ -75,19 +76,56 @@ abstract class Month {
     public static $configurationHolidays = [];
 
     /*
+    An array of events in this format:
+    [
+        "Some Event" => "_getSomeEventDate",
+        "Another Event" => "_getAnotherEventDate"
+    ]
+    Where:
+    The key is the Name of the event
+    The value is a private method reference on the object. The private method
+    returns a single or array of Carbon dates for the event.
+    */
+    public static $recurringAdvancedConfigurationEvents = [];
+
+    /*
+    An array of holidays in this format:
+    [
+        "Some Holiday" => "_getSomeHolidayDate",
+        "Another Holiday" => "_getAnotherHolidayDate"
+    ]
+    Where:
+    The key is the Name of the holiday
+    The value is a private method reference on the object. The private method
+    returns a single or array of Carbon dates for the holiday.
+    */
+    public static $recurringAdvancedConfigurationHolidays = [];
+
+    /*
     Returns an array of dates and events created by some rules
     */
-    abstract protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date);
+    public static function getRecurringAdvancedConfigurationBasedEvents(Carbon $date) {
+        $class = new static;
+        $events = $class::$recurringAdvancedConfigurationEvents;
+
+        foreach ($events as $event=>$methodName) {
+          $events[$event] = (method_exists($class, $methodName)) ? call_user_func([$class, $methodName], $date) : null;
+        }
+
+        return $events;
+    }
 
     /*
     Returns an array of holidays created by some rules
     */
-    abstract protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date);
+    public static function getRecurringAdvancedConfigurationBasedHolidays(Carbon $date) {
+        $class = new static;
+        $events = $class::$recurringAdvancedConfigurationHolidays;
 
-    public function parsedDay(Carbon $date, $modifier=null) {
-        $monthStartDate = Carbon::now();
-        $monthStartDate->setDateTime($currentDate->year, $currentDate->month, 1, 0, 0, 0);
+        foreach ($events as $event=>$methodName) {
+          $events[$event] = (method_exists($class, $methodName)) ? call_user_func([$class, $methodName], $date) : null;
+        }
 
-        return $date == Carbon::createFromTimestamp(strtotime("1 Monday", $monthStartDate->timestamp));
+        return $events;
     }
-}
+  }
