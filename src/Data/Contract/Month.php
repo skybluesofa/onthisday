@@ -107,12 +107,7 @@ abstract class Month {
     public static function getRecurringAdvancedConfigurationBasedEvents(Carbon $date) {
         $class = new static;
         $events = $class::$recurringAdvancedConfigurationEvents;
-
-        foreach ($events as $event=>$methodName) {
-          $events[$event] = (method_exists($class, $methodName)) ? call_user_func([$class, $methodName], $date) : null;
-        }
-
-        return $events;
+        return $class::getRecurringAdvancedConfigurationBasedItems($date, $events);
     }
 
     /*
@@ -121,6 +116,11 @@ abstract class Month {
     public static function getRecurringAdvancedConfigurationBasedHolidays(Carbon $date) {
         $class = new static;
         $events = $class::$recurringAdvancedConfigurationHolidays;
+        return $class::getRecurringAdvancedConfigurationBasedItems($date, $events);
+    }
+
+    private static function getRecurringAdvancedConfigurationBasedItems(Carbon $date, $events) {
+        $class = new static;
 
         foreach ($events as $event=>$methodName) {
           $events[$event] = (method_exists($class, $methodName)) ? call_user_func([$class, $methodName], $date) : null;
