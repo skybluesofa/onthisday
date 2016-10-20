@@ -11,14 +11,20 @@ class OnThisDayTest extends PHPUnit_Framework_TestCase {
 	}
 	function test_february_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/February.php');
-		$this->assertContains ("Valentine's Day", OnThisDay::getEvents('2/14/2016'));
+		$this->assertContains ("Valentine's Day", OnThisDay::getHolidays('2/14/2016'));
 		$this->assertContains ("Man Day", OnThisDay::getEvents('2/7/2016'));
+		$this->assertContains ("Fat Tuesday", OnThisDay::getEvents('2/9/2016'));
+		$this->assertContains ("Mardi Gras", OnThisDay::getEvents('2/10/2016'));
 	}
 	function test_march_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/March.php');
+		$this->assertContains ("Fat Tuesday", OnThisDay::getEvents('3/4/2014'));
+		$this->assertContains ("Mardi Gras", OnThisDay::getEvents('3/5/2014'));
+		$this->assertContains ("Easter", OnThisDay::getHolidays('3/27/2016'));
 	}
 	function test_april_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/April.php');
+		$this->assertContains ("Easter", OnThisDay::getHolidays('4/16/2017'));
 	}
 	function test_may_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/May.php');
