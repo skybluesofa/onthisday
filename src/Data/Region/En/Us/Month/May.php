@@ -11,7 +11,9 @@ class May extends Month {
 
     public static $specificDateHolidays = [];
 
-    public static $configurationEvents = [];
+    public static $configurationEvents = [
+    	"second Sundays of May %y" => ["Mother's Day"],
+    ];
 
     public static $configurationHolidays = [];
 
