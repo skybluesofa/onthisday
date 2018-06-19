@@ -29,7 +29,7 @@ class October extends Month {
         "22" => ["Nut Day", "Color Day"],
         "23" => ["Boston Cream Pie Day", "iPod Day"],
         "24" => ["Bologna Day", "U.N. Day", "Food Day"],
-        "25" => ["Punk For A Day Day", "Greasy Food Day", "Bandana Day", "Sourest Day", "Artist Day"],
+        "25" => ["Punk For A Day Day", "Greasy Food Day", "Bandana Day", "Sourest Day", "Artist Day", "Cartoonists Against Crime Day", "Pizza Maker's Day"],
         "26" => ["Pumkin Day", "Mincemeat Day"],
         "27" => ["Navy Day", "American Beer Day", "Cranky Co-workers Day"],
         "28" => ["Chocolate Day"],
@@ -73,6 +73,7 @@ class October extends Month {
         "third Saturday of October %y" => ["Sweetest Day"],
         "Fourth Saturday of October %y" => ["Make A Difference Day"],
         "Fourth Sunday of October %y" => ["Mother-in-Law Day"],
+        "Fourth Wednesday of October %y" => ["Lung Health Day"],
     ];
 
     public static $configurationHolidays = [];
