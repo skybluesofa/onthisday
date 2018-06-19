@@ -5,7 +5,9 @@ use Skybluesofa\OnThisDay\Data\Contract\Month;
 use Carbon\Carbon;
 
 class July extends Month {
-    public static $recurringEvents = [];
+    public static $recurringEvents = [
+        "4" => ["Independence Day"],
+    ];
 
     public static $specificDateEvents = [];
 
