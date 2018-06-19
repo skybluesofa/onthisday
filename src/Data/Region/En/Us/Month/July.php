@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class July extends Month {
     public static $recurringEvents = [
-        "4" => ["Independence Day","Fourth of July"],
+        "4" => ["Independence Day"],
     ];
 
     public static $specificDateEvents = [];
