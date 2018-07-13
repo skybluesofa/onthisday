@@ -1,7 +1,8 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
-use Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Carbon\Carbon;
 
 class February extends Month {
     public static $recurringEvents = [
@@ -36,6 +37,8 @@ class February extends Month {
         "29" => array("Leap Day", "Bachelors Day", "International Underlings Day", "Rare Disease Day"),
     ];
 
+    public static $recurringHolidays = [];
+
     public static $specificDateEvents = [
         "2016" => [
             "8" => ["Super Bowl Sunday", "New Moon", "Chinese New Year"],
@@ -59,25 +62,42 @@ class February extends Month {
         "last Tuesday of February %y" => ["SpayDayUSA"],
         "last Thursday of February %y" => ["NationalChiliDay"],
         "last Saturday of February %y" => ["InternationalSwordSwallowersDay"],
-
     ];
 
     public static $configurationHolidays = [];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
+        if ($date->day == 13 && $date->englishDayOfWeek=='Friday') {
+            $events[] = "Friday the 13th";
+        }
+
         if ($date->toDateString() == date("Y-m-d", strtotime("last sunday", strtotime("2/14/".$date->year)))) {
             $events[] = "Man Day"; // Sunday before Valentine"s Day
         }
+
         if (($date->toDateString() == date("Y-m-d", strtotime("last monday of February ".$date->year)))
                 || ($date->toDateString() == date("Y-m-d", strtotime("last tuesday of February ".$date->year)))) {
-            $events[] = "MuseumAdvocacyDay";
+            $events[] = "Museum Advocacy Day";
         }
+
+        if ($date->toDateString() == date("Y-m-d", strtotime('-47 days', easter_date($date->year)))) {
+            $events[] = "Mardi Gras";
+            $events[] = "Fat Tuesday";
+            $events[] = "International Pancake Day";
+            $events[] = "Paczki Day";
+        }
+
         return $events;
     }
 
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+    public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
+
+        if ($date->toDateString() == date("Y-m-d", strtotime('-46 days', easter_date($date->year)))) {
+            $events[] = "Ash Wednesday";
+        }
+
         return $events;
     }
 }

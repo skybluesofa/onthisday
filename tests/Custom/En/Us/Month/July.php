@@ -1,8 +1,9 @@
 <?php
 
-namespace Skybluesofa\OnThisDay\Tests\Custom\En\Us\Month;
+namespace Skybluesofa\OnThisDayTest\Custom\En\Us\Month;
 
-use Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Carbon\Carbon;
 
 class July extends Month
 {
@@ -18,13 +19,13 @@ class July extends Month
 
     public static $configurationHolidays = [];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date)
+    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date)
     {
         $events = [];
         return $events;
     }
 
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+    public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
         return $events;
     }

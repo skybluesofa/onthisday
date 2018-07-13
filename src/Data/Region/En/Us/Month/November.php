@@ -1,7 +1,8 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
-use Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Carbon\Carbon;
 
 class November extends Month {
     public static $recurringEvents = [
@@ -63,7 +64,7 @@ class November extends Month {
         "Fourth Thursday of November %y" => ["Thanksgiving"],
     ];
 
-    protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
 
         $thanksgiving = new \Carbon\Carbon('Fourth Thursday of November ' . $date->year);
@@ -88,7 +89,7 @@ class November extends Month {
         return $events;
     }
 
-    protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+    public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
         return $events;
     }
