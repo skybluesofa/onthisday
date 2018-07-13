@@ -1,10 +1,7 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Contract;
 
-use Skybluesofa\Chainable\Traits\Chainable;
-
 abstract class Month {
-    use Chainable;
 
     /*
     An array of dates and events in this format:
@@ -17,7 +14,7 @@ abstract class Month {
 
     /*
     An array of holidays in this format:
-    [ '0131' => ['abc','xyz'] ]
+    [ '31' => ['abc','xyz'] ]
     Where:
     '31' means the 31st of the month named by the name of the object of any given year
     'abc' and 'xyz' are holidays for the 31st day of this month
@@ -77,17 +74,25 @@ abstract class Month {
     /*
     Returns an array of dates and events created by some rules
     */
-    abstract protected function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date);
+    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+        return [];
+    }
 
     /*
     Returns an array of holidays created by some rules
     */
-    abstract protected function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date);
+    public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+        return [];
+    }
 
     public function parsedDay(Carbon $date, $modifier=null) {
         $monthStartDate = Carbon::now();
         $monthStartDate->setDateTime($currentDate->year, $currentDate->month, 1, 0, 0, 0);
 
         return $date == Carbon::createFromTimestamp(strtotime("1 Monday", $monthStartDate->timestamp));
+    }
+
+    protected static function isLeapYear($year) {
+        return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0)));
     }
 }
