@@ -6,14 +6,14 @@ use \Carbon\Carbon;
 
 class July extends Month {
     public static $recurringEvents = [
-        "1" => ["Canada Day", "National GSA Employee Day", "National Postal Workers Day", "U.S. Postage Stamp Day", "Zip Code Day", "Resolution Renewal Day", "Creative Ice Cream Flavors Day", "International Joke Day", "International Reggae Day", "Gingersnap Day"],
+        "1" => ["Gingersnap Day", "Canada Day", "National GSA Employee Day", "National Postal Workers Day", "U.S. Postage Stamp Day", "Zip Code Day", "Resolution Renewal Day", "Creative Ice Cream Flavors Day", "International Joke Day", "International Reggae Day", "Gingersnap Day"],
         "2" => ["I Forgot Day", "Made in the U.S.A. Day", "World UFO Day", "Anisette Day",],
         "3" => ["Compliment Your Mirror Day", "International Plastic Bag Free Day", "Superman Day", "Stay out of the Sun Day", "Chocolate Wafer Day", "Eat Beans Day", "Disobedience Day"],
         "4" => ["Boom Box Parade Day", "Indivisible Day", "Independence from Meat Day", "National Country Music Day", "Barbeque Day", "Spareribs Day", "Caesar Salad Day", "Jackfruit Day"],
         "5" => ["Bikini Day", "Work Without Your Hands Day", "Apple Turnover Day"],
         "6" => ["Fried Chicken Day", "International Kissing Day", "Take Your Webmaster to Lunch Day", "Beer Pong Day", "Virtually Hug a Virtual Assistant Day"],
         "7" => ["Chocolate Day", "Father-Daughter Take a Walk Together Day", "Strawberry Sundae Day", "Macaroni Day", "Global Forgiveness Day", "Tell the Truth Day"],
-        "8" => ["Coca-Cola Day", "National Blueberry Day", "Chocolate with Almonds Day"],
+        "8" => ["Coca-Cola Day", "National Blueberry Day", "Milk Chocolate with Almonds Day"],
         "9" => ["Body Painting Day", "National No Bra Day", "National Sugar Cookie Day", "International Town Criers Day", "Wienerschnitzel Day"],
         "10" => ["Don't Step on a Bee Day", "Pina Colada Day", "Teddy Bear Picnic Day", "U.S. Energy Independence Day", "Cow Appreciation Day"],
         "11" => ["Bowdlers Day", "Cheer Up the Lonely Day", "Day of the Five Billion", "National Rainier Cherries Day", "Slurpee Day", "7 Eleven Day", "World Population Day", "Blueberry Muffin Day", "All American Pet Photo Day"],
@@ -25,20 +25,19 @@ class July extends Month {
         "17" => ["Disneyland Day", "World Emoji Day", "Wrong Way Corrigan Day", "Yellow Pig Day", "Peach Ice Cream Day", "Tattoo Day"],
         "18" => ["National Caviar Day", "Nelson Mandela International Day", "National Sour Candy Day", "Hot Dog Day", "Mandela Day"],
         "19" => ["Get to Know Your Customers Day", "National Daiquiri Day", "Ice Cream Day"],
-        "20" => ["International Cake Day", "Moon Day", "Space Exploration Day", "National Lollipop Day", "World Jump Day", "International Chess Day"],
-        "21" => ["Legal Drinking Age Day", "No Pet Store Puppies Day", "Junk Food Day", "Lamington Day"],
-        "22" => ["Casual Pi Day", "Fragile X Awareness Day", "National Penuche Fudge Day", "Rat-catchers Day", "Spooners Day", "Hammock Day", "Penuche Fudge Day", "Mango Day", "Creme Brulee Day"],
-        "23" => ["Gorgeous Grandma Day", "Hot Enough For Ya Day", "National Hot Dog Day", "Peanut Butter and Chocolate Day", "International Yada, Yada, Yada Day"],
+        "20" => ["International Cake Day", "Moon Day", "Space Exploration Day", "National Lollipop Day", "World Jump Day", "International Chess Day", "Ice Cream Day"],
+        "21" => ["Creme Brulee Day", "Legal Drinking Age Day", "No Pet Store Puppies Day", "Junk Food Day", "Lamington Day"],
+        "22" => ["Penuche Day", "Casual Pi Day", "Fragile X Awareness Day", "National Penuche Fudge Day", "Rat-catchers Day", "Spooners Day", "Hammock Day", "Penuche Fudge Day", "Mango Day", "Creme Brulee Day"],
+        "23" => ["Vanilla Ice Cream Day", "Gorgeous Grandma Day", "Hot Enough For Ya Day", "National Hot Dog Day", "Peanut Butter and Chocolate Day", "International Yada, Yada, Yada Day"],
         "24" => ["Cousins Day", "National Drive-thru Day", "National Tequila Day", "National Thermal Engineers Day", "Tell An Old Joke Day", "Amelia Earhart Day"],
         "25" => ["Merry Go Round Day", "Red Shoe Day", "Thread the Needle Day", "Hot Fudge Sundae Day", "Carousel Day"],
-        "26" => ["One Voice", "All or Nothing Day", "Aunt and Uncle Day", "Coffee Milkshake Day"],
+        "26" => ["Bagelfest", "One Voice", "All or Nothing Day", "Aunt and Uncle Day", "Coffee Milkshake Day"],
         "27" => ["Scotch Whisky Day", "Take Your Houseplant for a Walk Day", "Take Your Pants for a Walk Day", "Barbie in a Blender Day", "National Korean War Veterans Armistice Day", "Walk on Stilts Day", "Talk in an Elevator Day", "Gary Gygax Day"],
         "28" => ["National Milk Chocolate Day", "Buffalo Soldiers Day", "National Waterpark Day", "World Hepatitis Day"],
         "29" => ["Lasagna Day", "Army Chaplain Corps Anniversary", "National Chicken Wing Day", "International Tiger Day", "National Lipstick Day", "Rain Day"],
         "30" => ["Cheesecake Day", "Father-In-Law Day", "Friendship Day", "Medicare's Birthday", "International Day of Friendship", "National Whistleblowers Appreciation Day", "National Support Public Education Day", "Paperback Book Day", "World Day Against Trafficking in Persons"],
         "31" => ["Uncommon Instrument Awareness Day", "World Ranger Day", "National Avocado Day", "National Mutt Day", "Raspberry Cake Day"],
     ];
-
     public static $recurringHolidays = [
         "4" => ["Fourth of July",]
     ];

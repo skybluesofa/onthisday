@@ -15,7 +15,9 @@ class May extends Month {
 
     public static $configurationEvents = [];
 
-    public static $configurationHolidays = [];
+    public static $configurationHolidays = [
+    	"second Sundays of May %y" => ["Mother's Day"],
+    ];
 
     public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];

@@ -67,23 +67,8 @@ class November extends Month {
     public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
 
-        $thanksgiving = new \Carbon\Carbon('Fourth Thursday of November ' . $date->year);
-
-        if ($date->toDateString() == $thanksgiving->copy()->addDay()->toDateString()) {
-            $events[] = "Maize Day";
-        }
-
-        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::FRIDAY)->toDateString()) {
+        if ($date->toDateString() == date("Y-m-d", strtotime('+1 days', strtotime("fourth Thursday of November ".$date->year)))) {
             $events[] = "Black Friday";
-            $events[] = "Buy Nothing Day";
-        }
-
-        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::SATURDAY)->toDateString()) {
-            $events[] = "Small Business Saturday";
-        }
-
-        if ($date->toDateString() == $thanksgiving->copy()->next(\Carbon\Carbon::MONDAY)->toDateString()) {
-            $events[] = "Cyber Monday";
         }
 
         return $events;

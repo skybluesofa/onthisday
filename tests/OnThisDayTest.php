@@ -3,7 +3,7 @@ use Skybluesofa\OnThisDay\OnThisDay;
 use Carbon\Carbon;
 
 class OnThisDayTest extends PHPUnit_Framework_TestCase {
-	function test_january_data() {
+	function _test_january_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/January.php');
 		$this->assertNotContains ("New Year's Day", (new OnThisDay)->getEvents('1/1/2016'));
 		$this->assertContains ("New Year's Day", (new OnThisDay)->getHolidays('1/1/2016'));
@@ -11,13 +11,22 @@ class OnThisDayTest extends PHPUnit_Framework_TestCase {
 	}
 	function test_february_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/February.php');
-		$this->assertContains ("Valentine's Day", (new OnThisDay)->getEvents('2/14/2016'));
+		$this->assertContains ("Valentine's Day", (new OnThisDay)->getHolidays('2/14/2016'));
+		$this->assertContains ("Man Day", (new OnThisDay)->getEvents('2/7/2016'));
+		$this->assertContains ("Fat Tuesday", (new OnThisDay)->getEvents('2/25/2020'));
+		$this->assertContains ("Mardi Gras", (new OnThisDay)->getEvents('2/25/2020'));
 	}
 	function test_march_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/March.php');
+		$this->assertContains ("Fat Tuesday", (new OnThisDay)->getEvents('3/5/2019'));
+		$this->assertContains ("Mardi Gras", (new OnThisDay)->getEvents('3/5/2019'));
+		$this->assertNotContains ("Easter", (new OnThisDay)->getEvents('3/27/2017'));
+		$this->assertContains ("Easter", (new OnThisDay)->getHolidays('3/27/2016'));
 	}
 	function test_april_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/April.php');
+		$this->assertNotContains ("Easter", (new OnThisDay)->getEvents('4/16/2017'));
+		$this->assertContains ("Easter", (new OnThisDay)->getHolidays('4/16/2017'));
 	}
 	function test_may_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/May.php');
@@ -39,7 +48,7 @@ class OnThisDayTest extends PHPUnit_Framework_TestCase {
 	}
 	function test_august_data() {
 		$this->assertFileExists(__DIR__.'/../src/Data/Region/En/Us/Month/August.php');
-		$this->assertContains ('National Dog Day', (new OnThisDay)->getHolidays('8/26/2016'));
+		$this->assertContains ('National Dog Day', (new OnThisDay)->getEvents('8/26/2016'));
 		$this->assertContains ('National Dog Day', (new OnThisDay)->getEventsAndHolidays('8/26/2016'));
 	}
 	function test_september_data() {
