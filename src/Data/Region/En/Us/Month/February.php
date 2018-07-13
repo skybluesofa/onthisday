@@ -85,8 +85,7 @@ class February extends Month {
             $events[] = "Museum Advocacy Day";
         }
 
-        print date("Y-m-d", strtotime('-47 days', easter_date('2016')));
-        if ($date->toDateString() == date("Y-m-d", strtotime('-47 days', easter_date($date->year)))) {
+        if ($date->toDateString() == date("Y-m-d", strtotime('-47 days', self::easterDate($date->year)))) {
             $events[] = "Mardi Gras";
             $events[] = "Fat Tuesday";
             $events[] = "International Pancake Day";
@@ -99,7 +98,7 @@ class February extends Month {
     public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
 
-        if ($date->toDateString() == date("Y-m-d", strtotime('-46 days', easter_date($date->year)))) {
+        if ($date->toDateString() == date("Y-m-d", strtotime('-46 days', self::easterDate($date->year)))) {
             $events[] = "Ash Wednesday";
         }
 

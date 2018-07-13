@@ -55,7 +55,7 @@ class April extends Month {
     public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
 
-        if ($date->toDateString() == date("Y-m-d", easter_date($date->year))) {
+        if ($date->toDateString() == date("Y-m-d", self::easterDate($date->year))) {
             $events[] = "Easter";
         }
 

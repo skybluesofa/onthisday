@@ -51,7 +51,7 @@ class March extends Month {
     public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
         $events = [];
 
-        if ($date->toDateString() == date("Y-m-d", strtotime('-47 days', easter_date($date->year)))) {
+        if ($date->toDateString() == date("Y-m-d", strtotime('-47 days', self::easterDate($date->year)))) {
             $events[] = "Mardi Gras";
             $events[] = "Fat Tuesday";
             $events[] = "International Pancake Day";
@@ -64,7 +64,7 @@ class March extends Month {
     public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
         $events = [];
 
-        if ($date->toDateString() == date("Y-m-d", easter_date($date->year))) {
+        if ($date->toDateString() == date("Y-m-d", self::easterDate($date->year))) {
             $events[] = "Easter";
         }
 
