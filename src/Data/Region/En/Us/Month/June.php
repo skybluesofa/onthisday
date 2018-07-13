@@ -33,7 +33,9 @@ class June extends Month {
 
     public static $specificDateHolidays = [];
 
-    public static $configurationEvents = [];
+    public static $configurationEvents = [
+    	"third Sundays of June %y" => ["Father's Day"],
+    ];
 
     public static $configurationHolidays = [];
 
