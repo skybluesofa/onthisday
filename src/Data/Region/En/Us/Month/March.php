@@ -1,9 +1,8 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
-use Skybluesofa\OnThisDay\Data\Contract\Month;
-use Skybluesofa\OnThisDay\Data\Region\En\Us\Helpers\Easter;
-use Carbon\Carbon;
+use \Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Carbon\Carbon;
 
 class March extends Month {
     public static $recurringEvents = [
@@ -39,6 +38,8 @@ class March extends Month {
       "31" => ["Clams on the Half Shell Day", "World Backup Day"]
     ];
 
+    public static $recurringHolidays = [];
+
     public static $specificDateEvents = [];
 
     public static $specificDateHolidays = [];
@@ -47,25 +48,26 @@ class March extends Month {
 
     public static $configurationHolidays = [];
 
-    public static $recurringAdvancedConfigurationEvents = [
-      "Fat Tuesday" => "_getFatTuesdayDate",
-      "Mardi Gras" => "_getMardiGrasDate",
-    ];
+    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+        $events = [];
 
-    public static $recurringAdvancedConfigurationHolidays = [
-      "Easter" => "_getEasterDate",
-    ];
+        if ($date->toDateString() == date("Y-m-d", strtotime('-47 days', self::easterDate($date->year)))) {
+            $events[] = "Mardi Gras";
+            $events[] = "Fat Tuesday";
+            $events[] = "International Pancake Day";
+            $events[] = "Paczki Day";
+        }
 
-    public static function _getFatTuesdayDate(Carbon $date) {
-      return Easter::getFatTuesdayDate($date);
+        return $events;
     }
 
-    public static function _getMardiGrasDate(Carbon $date) {
-      return Easter::getMardiGrasDate($date);
-    }
+    public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+        $events = [];
 
-    public static function _getEasterDate(Carbon $date) {
-      return Easter::getEasterDate($date);
-    }
+        if ($date->toDateString() == date("Y-m-d", self::easterDate($date->year))) {
+            $events[] = "Easter";
+        }
 
+        return $events;
+    }
 }

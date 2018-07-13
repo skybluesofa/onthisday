@@ -1,9 +1,8 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
-use Skybluesofa\OnThisDay\Data\Contract\Month;
-use Skybluesofa\OnThisDay\Data\Region\En\Us\Helpers\Easter;
-use Carbon\Carbon;
+use \Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Carbon\Carbon;
 
 class February extends Month {
   public static $recurringEvents = [
@@ -38,12 +37,14 @@ class February extends Month {
     "29" => ["Leap Day", "Bachelors Day", "International Underlings Day", "Rare Disease Day"],
   ];
 
-  public static $specificDateEvents = [
-    "2016" => [
-      "8" => ["Super Bowl Sunday", "New Moon", "Chinese New Year"],
-      "22" => ["Full Moon"],
-    ]
-  ];
+    public static $recurringHolidays = [];
+
+    public static $specificDateEvents = [
+        "2016" => [
+            "8" => ["Super Bowl Sunday", "New Moon", "Chinese New Year"],
+            "22" => ["Full Moon"],
+        ]
+    ];
 
   public static $specificDateHolidays = [
     "2016" => [
@@ -51,49 +52,56 @@ class February extends Month {
     ]
   ];
 
-  public static $configurationEvents = [
-    "first Tuesday of February %y" => ["AfricanAmericanCoachesDay"],
-    "first Wednesday of February %y" => ["NationalSigningDay"],
-    "first Friday of February %y" => ["BubbleGumDay", "GiveKidsASmileDay", "WearRedDay", "WorkingNakedDay"],
-    "first Saturday of February %y" => ["IceCreamForBreakfastDay", "TakeYourChildToTheLibraryDay"],
-    "second Sundays of February %y" => ["AutismSunday", "WorldMarriageDay"],
-    "second Mondays of February %y" => ["CleanOutYourComputerDay"],
-    "second Tuesdays of February %y" => ["SaferInternetDay", "ExtraterrestrialVisitorDay", "ExtraterrestrialCultureDay"],
-    "third Saturdays of February %y" => ["WorldWhaleDay"],
-    "third Fridays of February %y" => ["WorldInformationArchitectureDay"],
-    "fourth Wednesday of February %y" => ["InconvenienceYourselfDay"],
-    "last Tuesday of February %y" => ["SpayDayUSA"],
-    "last Thursday of February %y" => ["NationalChiliDay"],
-    "last Saturday of February %y" => ["InternationalSwordSwallowersDay"],
-  ];
-
-  public static $configurationHolidays = [];
-
-  public static $recurringAdvancedConfigurationEvents = [
-    "Man Day" => "_getManDayDate",
-    "Museum Advocacy Day" => "_getMuseumAdvocacyDayDate",
-    "Fat Tuesday" => "_getFatTuesdayDate",
-    "Mardi Gras" => "_getMardiGrasDate",
-  ];
-
-  public static $recurringAdvancedConfigurationHolidays = [];
-
-  public static function _getFatTuesdayDate(Carbon $date) {
-    return Easter::getFatTuesdayDate($date);
-  }
-
-  public static function _getMardiGrasDate(Carbon $date) {
-    return Easter::getMardiGrasDate($date);
-  }
-
-  public static function _getManDayDate(Carbon $date) {
-    return Carbon::createFromTimestamp(strtotime("last sunday", strtotime("2/14/".$date->year)));
-  }
-
-  public static function _getMuseumAdvocacyDayDate(Carbon $date) {
-    return [
-      Carbon::createFromTimestamp(strtotime("last monday of February ".$date->year)),
-      Carbon::createFromTimestamp(strtotime("last tuesday of February ".$date->year)),
+    public static $configurationEvents = [
+        "first Tuesday of February %y" => ["AfricanAmericanCoachesDay"],
+        "first Wednesday of February %y" => ["NationalSigningDay"],
+        "first Friday of February %y" => ["BubbleGumDay", "GiveKidsASmileDay", "WearRedDay", "WorkingNakedDay"],
+        "first Saturday of February %y" => ["IceCreamForBreakfastDay", "TakeYourChildToTheLibraryDay"],
+        "second Sundays of February %y" => ["AutismSunday", "WorldMarriageDay"],
+        "second Mondays of February %y" => ["CleanOutYourComputerDay"],
+        "second Tuesdays of February %y" => ["SaferInternetDay", "ExtraterrestrialVisitorDay", "ExtraterrestrialCultureDay"],
+        "third Saturdays of February %y" => ["WorldWhaleDay"],
+        "third Fridays of February %y" => ["WorldInformationArchitectureDay"],
+        "fourth Wednesday of February %y" => ["InconvenienceYourselfDay"],
+        "last Tuesday of February %y" => ["SpayDayUSA"],
+        "last Thursday of February %y" => ["NationalChiliDay"],
+        "last Saturday of February %y" => ["InternationalSwordSwallowersDay"],
     ];
-  }
+
+    public static $configurationHolidays = [];
+
+    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+        $events = [];
+        if ($date->day == 13 && $date->englishDayOfWeek=='Friday') {
+            $events[] = "Friday the 13th";
+        }
+
+        if ($date->toDateString() == date("Y-m-d", strtotime("last sunday", strtotime("2/14/".$date->year)))) {
+            $events[] = "Man Day"; // Sunday before Valentine"s Day
+        }
+
+        if (($date->toDateString() == date("Y-m-d", strtotime("last monday of February ".$date->year)))
+                || ($date->toDateString() == date("Y-m-d", strtotime("last tuesday of February ".$date->year)))) {
+            $events[] = "Museum Advocacy Day";
+        }
+
+        if ($date->toDateString() == date("Y-m-d", strtotime('-47 days', self::easterDate($date->year)))) {
+            $events[] = "Mardi Gras";
+            $events[] = "Fat Tuesday";
+            $events[] = "International Pancake Day";
+            $events[] = "Paczki Day";
+        }
+
+        return $events;
+    }
+
+    public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+        $events = [];
+
+        if ($date->toDateString() == date("Y-m-d", strtotime('-46 days', self::easterDate($date->year)))) {
+            $events[] = "Ash Wednesday";
+        }
+
+        return $events;
+    }
 }

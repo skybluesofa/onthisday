@@ -1,11 +1,9 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Contract;
 
-use Skybluesofa\Chainable\Traits\Chainable;
-use Carbon\Carbon;
+use \Carbon\Carbon;
 
 abstract class Month {
-    use Chainable;
 
     /*
     An array of dates and events in this format:
@@ -18,7 +16,7 @@ abstract class Month {
 
     /*
     An array of holidays in this format:
-    [ '0131' => ['abc','xyz'], ]
+    [ '31' => ['abc','xyz'] ]
     Where:
     '31' means the 31st of the month named by the name of the object of any given year
     'abc' and 'xyz' are holidays for the 31st day of this month
@@ -128,4 +126,27 @@ abstract class Month {
 
         return $events;
     }
-  }
+
+    protected static function isLeapYear($year) {
+        return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0)));
+    }
+
+    protected static function easterDate($year) {
+        if (function_exists('easter_date')) {
+            return easter_date($year);
+        }
+
+        $G = $year % 19;
+        $C = (int)($year / 100);
+        $H = (int)($C - (int)($C / 4) - (int)((8*$C+13) / 25) + 19*$G + 15) % 30;
+        $I = (int)$H - (int)($H / 28)*(1 - (int)($H / 28)*(int)(29 / ($H + 1))*((int)(21 - $G) / 11));
+        $J = ($year + (int)($year/4) + $I + 2 - $C + (int)($C/4)) % 7;
+        $L = $I - $J;
+        $m = 3 + (int)(($L + 40) / 44);
+        $d = $L + 28 - 31 * ((int)($m / 4));
+        $y = $year;
+        $E = mktime(0,0,0, $m, $d, $y);
+    
+        return $E;
+    }
+}

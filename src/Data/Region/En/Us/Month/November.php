@@ -1,8 +1,8 @@
 <?php
 namespace Skybluesofa\OnThisDay\Data\Region\En\Us\Month;
 
-use Skybluesofa\OnThisDay\Data\Contract\Month;
-use Carbon\Carbon;
+use \Skybluesofa\OnThisDay\Data\Contract\Month;
+use \Carbon\Carbon;
 
 class November extends Month {
     public static $recurringEvents = [
@@ -64,37 +64,18 @@ class November extends Month {
         "Fourth Thursday of November %y" => ["Thanksgiving"],
     ];
 
-    public static $recurringAdvancedConfigurationEvents = [
-      "Maize Day" => "_getMaizeDayDate",
-      "Black Friday" => "_getBlackFridayDate",
-      "Buy Nothing Day" => "_getBuyNothingDate",
-      "Small Business Saturday" => "_getSmallBusinessSaturdayDate",
-      "Cyber Monday" => "_getCyberMondayDate",
-    ];
+    public static function getRecurringAdvancedConfigurationBasedEvents(\Carbon\Carbon $date) {
+        $events = [];
 
-    public static $recurringAdvancedConfigurationHolidays = [];
+        if ($date->toDateString() == date("Y-m-d", strtotime('+1 days', strtotime("fourth Thursday of November ".$date->year)))) {
+            $events[] = "Black Friday";
+        }
 
-    public static function _getThanksgivingDate(Carbon $date) {
-      return new Carbon('Fourth Thursday of November ' . $date->year);
+        return $events;
     }
 
-    public static function _getMaizeDayDate(Carbon $date) {
-      return self::_getThanksgivingDate($date)->addDay();
-    }
-
-    public static function _getBlackFridayDate(Carbon $date) {
-      return self::_getThanksgivingDate($date)->addDay();
-    }
-
-    public static function _getBuyNothingDate(Carbon $date) {
-      return self::_getThanksgivingDate($date)->addDay();
-    }
-
-    public static function _getSmallBusinessSaturdayDate(Carbon $date) {
-      return self::_getThanksgivingDate($date)->next(Carbon::SATURDAY);
-    }
-
-    public static function _getCyberMondayDate(Carbon $date) {
-      return self::_getThanksgivingDate($date)->next(Carbon::MONDAY);
+    public static function getRecurringAdvancedConfigurationBasedHolidays(\Carbon\Carbon $date) {
+        $events = [];
+        return $events;
     }
 }

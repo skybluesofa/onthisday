@@ -5,13 +5,13 @@ Get events and holidays for today (or any other day).
 
 ```
 // Get events for a date
-$events = OnThisDay::getEvents('1/1/2016');
+$events = (new OnThisDay)->getEvents('1/1/2016');
 
 // Get holidays for a date
-$events = OnThisDay::getHolidays('1/1/2016');
+$events = (new OnThisDay)->getHolidays('1/1/2016');
 
 // Get events and Holidays for a date
-$events = OnThisDay::getEventsAndHolidays('1/1/2016');
+$events = (new OnThisDay)->getEventsAndHolidays('1/1/2016');
 ```
 
 ### What's the difference between an 'event' and a 'holiday'?

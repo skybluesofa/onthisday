@@ -1,9 +1,8 @@
 <?php
 namespace Skybluesofa\OnThisDay;
 
-use Carbon\Carbon;
-use Skybluesofa\OnThisDay\Data\Parser;
-use Skybluesofa\Chainable\Traits\Chainable;
+use \Carbon\Carbon;
+use \Skybluesofa\OnThisDay\Data\Parser;
 
 /*
 The easiest implementation is to call
@@ -28,28 +27,27 @@ You can also re-add 'standard' results by chaining like this:
 # OnThisDay::withStandardEvents()->getEvents('1/1/2016');
 */
 class OnThisDay {
-    use Chainable;
   private static $date = null;
   private $locale = 'en_US';
   private $customBaseClass = false;
   private $useStandardEvents = true;
 
-  private function setLocale($locale) {
+  public function setLocale($locale) {
     $this->locale = $locale;
     return $this;
   }
 
-  private function useCustomEvents($customBaseClass=false) {
+  public function useCustomEvents($customBaseClass=false) {
     $this->customBaseClass = $customBaseClass;
     return $this;
   }
 
-  private function withStandardEvents($useStandardEvents=true) {
+  public function withStandardEvents($useStandardEvents=true) {
     $this->useStandardEvents = $useStandardEvents;
     return $this;
   }
 
-  private function getEvents($date=null) {
+  public function getEvents($date=null) {
     $parser = new Parser($this->locale);
     return $parser
       ->setDate($date ? Carbon::parse($date) : Carbon::now())
@@ -58,7 +56,7 @@ class OnThisDay {
       ->getEvents();
   }
 
-  private function getHolidays($date=null) {
+  public function getHolidays($date=null) {
     $parser = new Parser($this->locale);
     return $parser
       ->setDate($date ? Carbon::parse($date) : Carbon::now())
@@ -67,7 +65,7 @@ class OnThisDay {
       ->getHolidays();
   }
 
-  private function getEventsAndHolidays($date=null) {
+  public function getEventsAndHolidays($date=null) {
     $parser = new Parser($this->locale);
     return array_merge(
         $parser
@@ -83,7 +81,7 @@ class OnThisDay {
     );
   }
 
-  private function whenIs($event, $year=null) {
+  public function whenIs($event, $year=null) {
     /*
     Should return an array of Carbon dates for a given event/holiday. The reason
     for the array value is that, there are some events that have the same name,
