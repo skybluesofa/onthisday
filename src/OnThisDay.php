@@ -1,8 +1,8 @@
 <?php
 namespace Skybluesofa\OnThisDay;
 
-use Carbon\Carbon;
-use Skybluesofa\OnThisDay\Data\Parser;
+use \Carbon\Carbon;
+use \Skybluesofa\OnThisDay\Data\Parser;
 
 /*
 The easiest implementation is to call
